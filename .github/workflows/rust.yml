@@ -29,13 +29,11 @@ jobs:
         sudo dpkg --add-architecture i386 
         sudo apt-get update 
         sudo apt-get install build-essential g++-multilib -y
-
     - uses: actions/checkout@v2
     - name: Build server plugin
       run: |
         cargo build --package server --release
         strip -s target/release/libserver.so -o stripped.so
-
     - uses: actions/upload-artifact@v2
       with:
         name: cef-${{ matrix.os }}.so
@@ -60,7 +58,6 @@ jobs:
       run: |
         cargo build --package server --release
         strip -s target/release/libserver.so -o stripped.so
-
     - uses: actions/upload-artifact@v2
       with:
         name: cef-centos-7.so
@@ -79,7 +76,6 @@ jobs:
         dpkg --add-architecture i386 
         apt-get update
         apt-get install build-essential curl make g++-multilib -y
-
     - name: Install nightly rust
       uses: actions-rs/toolchain@v1
       with:
@@ -91,7 +87,6 @@ jobs:
       run: |
         cargo build --package server --release
         strip -s target/release/libserver.so -o stripped.so
-
     - uses: actions/upload-artifact@v2
       with:
         name: cef-debian-${{ matrix.os }}.so
@@ -105,7 +100,6 @@ jobs:
         Write-Output "DX_SDK_DIR=${env:TEMP}/dxsdk" >> ${env:GITHUB_ENV}
         Write-Output "DX_SDK=${env:TEMP}/dxsdk/Lib/x86" >> ${env:GITHUB_ENV}
         Write-Output "CEF_PATH=${env:TEMP}/cef" >> ${env:GITHUB_ENV}
-
     - name: DirectX SDK cache
       id: dx-cache
       uses: actions/cache@v2
